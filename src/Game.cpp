@@ -1,6 +1,9 @@
 #include "Game.h"
+#include <iostream>
 #include <random>
 #include <ctime>
+
+using namespace std;
 
 char board[9];
 bool playerTurn = false;
@@ -26,26 +29,27 @@ void Game::init()
     }
 
     // coin toss for start
+    // note: rand() is terrible but will be enough here
     srand(time(0));
     playerTurn = (rand() % 2 == 0);
 
     if (playerTurn)
     {
-        std::cout << "Player starts." << std::endl;
+        cout << "Player starts." << endl;
     } else {
-        std::cout << "Computer starts." << std::endl;
+        cout << "Computer starts." << endl;
     }
 
 
     isRunning = true;
 
+    // render at init to show current board with number indexes
     render();
-
 }
 
-void Game::handleEvents()
+void Game::update()
 {
-    // check if board is full with no victory conditions met
+     // check if board is full with no victory conditions met
     bool full = true;
     for (int i = 0; i < 9; i++)
     {
@@ -53,36 +57,40 @@ void Game::handleEvents()
             full = false;
         }
     }
-        if (!full) {
+
+    if (!full) {
         // PLAY
         int id;
         int input;
         if (playerTurn)
         {
-            std::cout << "Player turn." << std::endl;
-            std::cout << "Where do you want to draw?" << std::endl;
-            /*bool valid = false;
+            cout << "Player turn." << endl;
+            cout << "Where do you want to play?" << endl;
+            /*
+            //todo check valid move from player
+            bool valid = false;
             while (!valid)
             {
                 if (id < 0 || id > 8 || board[id]!=' ')
                     // try again
-            }*/
-            std::cin >> input;
-            id = input - 1; // array starts at 0 //todo check valid
+            }
+            */
+            cin >> input;
+            id = input - 1; // array starts at 0, render at 1
 
             board[id] = 'X';
             playerTurn = false;
         } else {
-            bool found = false;
-            while (!found)
+            bool moveFound = false;
+            while (!moveFound)
             {
                 int id = rand() % 9;
-                //std::cout << "Debug : rand()%9 = " << id << std::endl;
+                //cout << "Debug : rand()%9 = " << id << endl;
                 if (board[id] == ' ')
                 {
                     board[id] = 'O';
-                    found = true;
-                    std::cout << "Computer played O at " << id + 1 << std::endl;
+                    moveFound = true;
+                    cout << "Computer plays O at " << id + 1 << endl;
                 }
             }
             playerTurn = true;
@@ -99,6 +107,9 @@ void Game::handleEvents()
             0,4,8
             2,4,6
         */
+
+        // there is a cleaner way to check current board against an array of winning conditions
+        // most likely the compiler will end up generating similar code
         if (
             ((board[0]=='X')&&(board[1]=='X')&&(board[2]=='X'))
             ||((board[3]=='X')&&(board[4]=='X')&&(board[5]=='X'))
@@ -110,7 +121,7 @@ void Game::handleEvents()
             ||((board[2]=='X')&&(board[4]=='X')&&(board[6]=='X'))
             )
         {
-            std::cout << "Player won." << std::endl;
+            cout << "Player won." << endl;
             isRunning = false;
         } else if (
             ((board[0]=='O')&&(board[1]=='O')&&(board[2]=='O'))
@@ -123,55 +134,43 @@ void Game::handleEvents()
             ||((board[2]=='O')&&(board[4]=='O')&&(board[6]=='O'))
             )
         {
-            std::cout << "Computer won." << std::endl;
+            cout << "Computer won." << endl;
             isRunning = false;
         }
     } else {
-        std::cout << "Board is full, no one won." << std::endl;
+        cout << "Board is full, no one won." << endl;
         isRunning = false;
     }
-
-
-}
-
-void Game::update()
-{
 
 }
 
 void Game::render()
 {
-    std::cout << "Current board\n";
+    cout << "Current board :\n";
     for (int i = 0; i < 9; i++)
     {
         // line begin
         if ((i%3) == 0)
         {
-            std::cout << "|";
+            cout << "|";
         }
 
+        // show index OR content
         int k = i+1;
         if (board[i] == ' ')
         {
-            std::cout << k << "|";
+            cout << k << "|";
         } else {
-            std::cout << board[i] << "|";
+            cout << board[i] << "|";
         }
 
 
         // line end
         if ((k%3) == 0)
         {
-            std::cout << "\n";
+            cout << "\n";
         }
     }
 
-    std::cout << std::endl; // endl will flush buffer but "\n" won't
-
-    //isRunning = false; // dev todo del
-}
-
-void Game::clean()
-{
-
+    cout << endl; // endl will flush buffer but "\n" won't
 }

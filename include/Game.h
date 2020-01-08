@@ -1,8 +1,6 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <iostream>
-
 class Game
 {
     public:
@@ -10,10 +8,8 @@ class Game
         virtual ~Game();
 
         void init();
-        void handleEvents();
         void update();
         void render();
-        void clean();
 
         bool running();
 
