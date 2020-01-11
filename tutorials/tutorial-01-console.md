@@ -156,7 +156,7 @@ Here you go, game logic and code samples, it's not the best game, but it works. 
 
 #### Source code
 
-If you have a hard time filling the blanks, or if you want to check the header file, include etc, the source can be found on github here : https://github.com/imadev101/tictactoe
+If you have a hard time filling the blanks, or if you want to check the header file, include etc, the source of this commit can be found on github here : https://github.com/imadev101/tictactoe/tree/ba89d27532bea0ac7733e47175646ed9f467614d
 
 #### What's next ?
 
