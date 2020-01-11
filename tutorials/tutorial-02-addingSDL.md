@@ -83,3 +83,6 @@ int main(int arg, char* args[])
 So the code is pretty self-explanatory for most of it, we will have plenty of time to go deeper into what a surface, a rectangle, or a RGBA format is. So far, my set up works and I have a shiny orange window next to my console.
 
 Next part will be about rendering the actual game this way.
+
+The Source code for this commit can be browsed here :
+https://github.com/imadev101/tictactoe/tree/c27f44c1a58ccd3e3b12ef531a5e4a8df76d2be1
