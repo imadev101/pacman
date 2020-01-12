@@ -6,3 +6,4 @@ Did you ever want to make your own video game?  I did, and this is the first ste
 Tutorials / Docs for each step :
 1. [Simple Console Game](tutorials/tutorial-01-console.md)
 2. [Adding SDL support](tutorials/tutorial-02-addingSDL.md)
+3. [Using SDL for rendering and mouse click](tutorials/tutorial-03-rendering-ttt.md)
