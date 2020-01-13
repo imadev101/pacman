@@ -15,7 +15,7 @@ A tile is 10x10
 
 Map is 21 width x 27 height (tiles)
  
-# Original map
+###### Original map
 
 ```
 WWWWWWWWWWWWWWWWWWWWW
@@ -48,14 +48,14 @@ WWWWWWWWWWWWWWWWWWWWW
 ```
 ### Logic
 
-# Score
+###### Score
 
 Eating a dot is 2 points
 Eating a bonus is 10 points
 Eating a vuln ghost is 10 points
 Eating a fruit is 20 points
 
-# Logic
+###### Logic
 
 When eaten, Ghost go back to castle, wait 10 seconds and start again.
 
@@ -70,7 +70,8 @@ When pacman dies :
 when all dots are eaten :
 WIN
 
-Random events :
+###### Random events
+
 Every tick there is a very small chance of spawning a fruit (goal is to spawn one every 15-30seconds)
 
 ### Gameplay
