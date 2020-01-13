@@ -165,7 +165,6 @@ void Game::update()
                 {
                     board[playerPlayed] = 'X';
                     playerTurn = false;
-                    valid = true;
                     playerPlayed = -1;
                 }
             }
