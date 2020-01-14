@@ -3,6 +3,11 @@
 
 #include "SDL.h"
 
+// predeclaration
+class Map;
+class Player;
+
+
 class Game
 {
     public:
@@ -21,10 +26,14 @@ class Game
         SDL_Window* window;
         SDL_Event event;
 
+        Map *map;
+        Player *player;
+
     protected:
 
     private:
         bool isRunning;
+
 };
 
 #endif // GAME_H
