@@ -1,5 +1,13 @@
 #include "Player.h"
 #include "Map.h"
+#include "TextureManager.h"
+
+SDL_Texture *texture;
+bool animated = false;
+int frames = 6;
+int speed = 250;
+
+int tilt = 0;
 
 Player::Player(Game *mGame, Map *mMap)
 {
@@ -7,6 +15,7 @@ Player::Player(Game *mGame, Map *mMap)
     game = mGame;
     map = mMap;
     name = "JOE";
+
 }
 
 Player::~Player()
@@ -18,19 +27,24 @@ void Player::move(char direction)
 {
     int xMod = 0;
     int yMod = 0;
+    int tmpTilt = 0;
     switch (direction)
     {
     case 'N':
         yMod = -1; // our zero y is north
+        tmpTilt = 90;
         break;
     case 'E':
         xMod = 1;
+        tmpTilt = 180;
         break;
     case 'S':
         yMod = 1;
+        tmpTilt = 270;
         break;
     case 'W':
         xMod = -1;
+        tmpTilt = 0;
         break;
     }
     // using modulo allow to round up around map
@@ -44,11 +58,14 @@ void Player::move(char direction)
     {
         xVel = xMod;
         yVel = yMod;
+        tilt = tmpTilt;
     }
 }
 
 void Player::render(SDL_Renderer *renderer, int xPosRender, int yPosRender)
 {
+    texture = TextureManager::LoadTexture(renderer, "images/player.png");
+
     int multiplier = 1;
     SDL_Rect playerRect;
     playerRect.x = xPosRender + xPos*10*multiplier - 3*multiplier;
@@ -56,9 +73,19 @@ void Player::render(SDL_Renderer *renderer, int xPosRender, int yPosRender)
     playerRect.w = 16*multiplier;
     playerRect.h = 16*multiplier;
 
-    SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0x00, 0xFF);
+    SDL_Rect srcRect;
+    srcRect.x = 0;
+    int frameNumber = (SDL_GetTicks()/speed) % frames; // will get 1 frame per tick
+    std::cout << "Frame number is " << frameNumber << "at tick " << SDL_GetTicks() << std::endl;
+    srcRect.y = frameNumber * 16;
+    srcRect.w = 16;
+    srcRect.h = 16;
 
-    SDL_RenderFillRect(renderer, &playerRect);
+    // drawing player with a tilt in clockwise deg
+    TextureManager::DrawTilt(renderer, texture, srcRect, playerRect, tilt);
+
+    SDL_Delay(100);
+
 }
 
 void Player::update()

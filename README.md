@@ -85,3 +85,7 @@ If an arrow key is pressed but pacman can't move in that direction, the key even
 - Show best HI-SCORE
 - Show score
 - Show lifes left
+
+### How it's done
+
+* [First map / tiled board](tutorials/01-map.md

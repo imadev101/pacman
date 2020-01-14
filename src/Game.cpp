@@ -1,7 +1,10 @@
 #include "Game.h"
+#include "TextureManager.h"
 #include "Map.h"
 #include "Player.h"
 #include <iostream>
+
+SDL_Renderer* Game::renderer = nullptr;
 
 Game::Game()
 {

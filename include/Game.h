@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include "SDL.h"
+#include "SDL_image.h"
 
 // predeclaration
 class Map;
@@ -22,7 +23,7 @@ class Game
 
         bool running();
 
-        SDL_Renderer *renderer;
+        static SDL_Renderer *renderer;
         SDL_Window* window;
         SDL_Event event;
 
