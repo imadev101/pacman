@@ -2,12 +2,15 @@
 #include "Map.h"
 #include "TextureManager.h"
 
-SDL_Texture *texture;
+SDL_Texture *texture = NULL;
 bool animated = false;
 int frames = 6;
 int speed = 250;
 
 int tilt = 0;
+
+bool powerUp;
+int powerUpStartTime;
 
 Player::Player(Game *mGame, Map *mMap)
 {
@@ -15,7 +18,7 @@ Player::Player(Game *mGame, Map *mMap)
     game = mGame;
     map = mMap;
     name = "JOE";
-
+    texture = TextureManager::LoadTexture(Game::renderer, "images/player.png");
 }
 
 Player::~Player()
@@ -64,8 +67,6 @@ void Player::move(char direction)
 
 void Player::render(SDL_Renderer *renderer, int xPosRender, int yPosRender)
 {
-    texture = TextureManager::LoadTexture(renderer, "images/player.png");
-
     int multiplier = 1;
     SDL_Rect playerRect;
     playerRect.x = xPosRender + xPos*10*multiplier - 3*multiplier;
@@ -84,7 +85,7 @@ void Player::render(SDL_Renderer *renderer, int xPosRender, int yPosRender)
     // drawing player with a tilt in clockwise deg
     TextureManager::DrawTilt(renderer, texture, srcRect, playerRect, tilt);
 
-    SDL_Delay(100);
+    //SDL_Delay(100);
 
 }
 
@@ -100,6 +101,27 @@ void Player::update()
     {
         xPos = testX;
         yPos = testY;
+    }
+
+    if (map->eatDot(xPos,yPos))
+    {
+        score += 2;
+    }
+
+    if (map->eatPowerUp(xPos,yPos))
+    {
+        score += 10;
+        powerUp = true;
+        // get current time
+        powerUpStartTime = time(NULL);
+    }
+
+    if (powerUp)
+    {
+        if ((time(NULL) - powerUpStartTime)>10) // after 10 seconds
+        {
+            powerUp = false;
+        }
     }
 }
 

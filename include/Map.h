@@ -20,10 +20,14 @@ class Map
 
         char tiles[27][21];
 
+        bool hasDot(int x, int y);
+        bool eatDot(int x, int y);
+        bool hasPowerUp(int x, int y);
+        bool eatPowerUp(int x, int y);
+
     protected:
 
     private:
-
 
 };
 

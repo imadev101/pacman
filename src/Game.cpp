@@ -20,12 +20,6 @@ bool Game::running() { return isRunning; }
 
 void Game::init(const char* title, int width, int height)
 {
-    map = new Map();
-    map->init();
-
-    player = new Player(this, map);
-    player->setPosition(10,20);
-
     // create a window
     window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
 
@@ -37,6 +31,12 @@ void Game::init(const char* title, int width, int height)
 
     // create a renderer
     renderer = SDL_CreateRenderer(window, -1, 0);
+
+    map = new Map();
+    map->init();
+
+    player = new Player(this, map);
+    player->setPosition(10,20);
 
     isRunning = true;
 
@@ -85,6 +85,7 @@ void Game::handleEvents()
 void Game::update()
 {
     player->update();
+    //map->update();
 }
 
 void Game::render()

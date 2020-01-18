@@ -1,12 +1,17 @@
 #include "Map.h"
 #include "Game.h"
+#include "TextureManager.h"
 #include <fstream>
 #include <iostream>
 #include <bits/stdc++.h>
 
+SDL_Texture* dotTexture = NULL;
+SDL_Texture* powerUpTexture = NULL;
+
 Map::Map()
 {
-
+    dotTexture = TextureManager::LoadTexture(Game::renderer, "images/dot.png");
+    powerUpTexture = TextureManager::LoadTexture(Game::renderer, "images/powerUp.png");
 }
 
 Map::~Map()
@@ -92,6 +97,39 @@ void Map::render(SDL_Renderer *renderer, int xPosRender, int yPosRender)
 
         }
     }
+
+    // each row
+    for (int y = 0; y < height; y++)
+    {
+        // each col
+        for (int x = 0; x < width; x++)
+        {
+            SDL_Rect tile;
+            tile.x = xPosRender + x*10*multiplier;
+            tile.y = yPosRender + y*10*multiplier;
+            tile.w = 10*multiplier;
+            tile.h = 10*multiplier;
+
+            SDL_Rect srcRect;
+            srcRect.x = 0;
+            srcRect.y = 0;
+            srcRect.w = 16;
+            srcRect.h = 16;
+
+            switch(tiles[y][x])
+            {
+            case 'o':
+                TextureManager::Draw(renderer, powerUpTexture, srcRect, tile);
+                break;
+            case '.':
+                TextureManager::Draw(renderer, dotTexture, srcRect, tile);
+                break;
+            default:
+                break;
+            }
+
+        }
+    }
 }
 
 
@@ -99,4 +137,36 @@ bool Map::canWalk(int x, int y)
 {
     //std::cout << "canWalk(" << x << ", " << y << ")" << std::endl;
     return ((tiles[y][x]==' ')||(tiles[y][x]=='.')||(tiles[y][x]=='o'));
+}
+
+bool Map::hasDot(int x, int y)
+{
+    return (tiles[y][x]=='.');
+}
+
+bool Map::eatDot(int x, int y)
+{
+    //std::cout << "trying to eat dot at " << x << "," << y << std::endl;
+    if (hasDot(x,y))
+    {
+        //std::cout << "eating dot at " << x << "," << y << std::endl;
+        tiles[y][x] = ' ';
+        return true;
+    }
+    return false;
+}
+
+bool Map::hasPowerUp(int x, int y)
+{
+    return (tiles[y][x]=='o');
+}
+
+bool Map::eatPowerUp(int x, int y)
+{
+    if (hasPowerUp(x,y))
+    {
+        tiles[y][x] = ' ';
+        return true;
+    }
+    return false;
 }
