@@ -3,6 +3,9 @@
 
 #include "SDL.h"
 #include "SDL_image.h"
+#include "SDL_ttf.h"
+
+#include <bits/stdc++.h>
 
 // predeclaration
 class Map;
@@ -29,6 +32,9 @@ class Game
 
         Map *map;
         Player *player;
+
+        void renderText(const char* chars, int x, int y, int w, int h);
+        void renderInt(int intToText, int x, int y, int w, int h);
 
     protected:
 

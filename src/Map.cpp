@@ -3,7 +3,7 @@
 #include "TextureManager.h"
 #include <fstream>
 #include <iostream>
-#include <bits/stdc++.h>
+
 
 SDL_Texture* dotTexture = NULL;
 SDL_Texture* powerUpTexture = NULL;
