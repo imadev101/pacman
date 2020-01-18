@@ -88,4 +88,5 @@ If an arrow key is pressed but pacman can't move in that direction, the key even
 
 ### How it's done
 
-* [First map / tiled board](tutorials/01-map.md
+* [First map / tiled board](tutorials/01-map.md)
+* [Rendering text with SDL_ttf](tutorials/02-sdl_ttf.md)
