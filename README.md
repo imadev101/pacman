@@ -84,7 +84,7 @@ If an arrow key is pressed but pacman can't move in that direction, the key even
 - Store 1 highest score.
 - Show best HI-SCORE
 - Show score
-- Show lifes left
+- Show lives left
 
 ### How it's done
 
